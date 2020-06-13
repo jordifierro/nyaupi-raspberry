@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import os
 
 
 def setup():
@@ -8,13 +9,13 @@ def setup():
 
 def watch():
     while True:
-       if is_open():
-           print("Door is open")
+       if door_is_open():
+           print('open')
        else:
-           print("Door is closed")
+           print('closed')
        time.sleep(2)
 
-def is_open():
+def door_is_open():
     return GPIO.input(8)
 
 if __name__ == '__main__':

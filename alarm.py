@@ -1,37 +1,20 @@
 import RPi.GPIO as GPIO
 import time
+import subprocess
+import atexit
+import os
 
-import door
-import buzzer
+def check():
+    global door_process
+    door_process = subprocess.Popen('python3 door.py', shell=True)
+    while True:
+        time.sleep(2)
 
-buzzing = False
+def tear_down():
+    global door_process
+    door_process.kill()
 
-def setup():
-  door.setup()
-  buzzer.setup()
-
-def loop():
-  global buzzing
-
-  while True:
-
-    if buzzing:
-      buzzer.buzz()
-    else:
-      buzzer.silence()
-
-    if door.is_open():
-      buzzing = True
-    if not door.is_open():
-      buzzing = False 
-
-def destroy():
-  door.destroy()
-  buzzer.destroy()
 
 if __name__ == '__main__':
-  setup()
-  try:
-    loop()
-  except KeyboardInterrupt:
-    destroy()
+    atexit.register(tear_down)
+    check()
