@@ -9,4 +9,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . /code/
 
-CMD python3 alarm.py
+CMD python3 status && python3 alarm.py
