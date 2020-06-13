@@ -14,14 +14,25 @@ def check():
     global buzzer_process
     door_process = subprocess.Popen('python3 door.py', shell=True)
     is_open_door = status()['door_open']
+    is_alarm_active = status()['alarm_active']
     while True:
-        is_now_open_door = status()['door_open']
         is_now_alarm_active = status()['alarm_active']
+        if not is_alarm_active and is_now_alarm_active:
+            if buzzer_process is not None:
+                buzzer_process.kill()
+            buzzer_process = subprocess.Popen('python3 buzzer.py beep 2', shell=True)
+        elif is_alarm_active and not is_now_alarm_active:
+            if buzzer_process is not None:
+                buzzer_process.kill()
+            buzzer_process = subprocess.Popen('python3 buzzer.py beep 1', shell=True)
+
+        is_now_open_door = status()['door_open']
         if not is_open_door and is_now_open_door and is_now_alarm_active:
             if buzzer_process is not None:
                 buzzer_process.kill()
             buzzer_process = subprocess.Popen('python3 buzzer.py alarm 5', shell=True)
 
+        is_alarm_active = is_now_alarm_active
         is_open_door = is_now_open_door
 
         time.sleep(0.5)

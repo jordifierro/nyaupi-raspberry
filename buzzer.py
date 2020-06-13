@@ -11,7 +11,6 @@ def setup():
     GPIO.setup(PIN, GPIO.OUT)
     global p
     p = GPIO.PWM(PIN, 1)
-    p.start(0);
 
 def tear_down():
     global p
