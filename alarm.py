@@ -6,16 +6,22 @@ import os
 
 from storage import status
 
+
 door_process = None
 buzzer_process = None
 
 def check():
+    os.system('python3 storage.py')
+
     global door_process
     global buzzer_process
     door_process = subprocess.Popen('python3 door.py', shell=True)
+
     is_open_door = status()['door_open']
     is_alarm_active = status()['alarm_active']
+
     while True:
+
         is_now_alarm_active = status()['alarm_active']
         if not is_alarm_active and is_now_alarm_active:
             if buzzer_process is not None:
@@ -45,7 +51,6 @@ def tear_down():
     global buzzer_process
     if buzzer_process is not None:
         buzzer_process.kill()
-
 
 if __name__ == '__main__':
     atexit.register(tear_down)
