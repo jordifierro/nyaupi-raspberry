@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import os
 
-from status import set_door_open
+from storage import set_door_open
 
 
 def setup():

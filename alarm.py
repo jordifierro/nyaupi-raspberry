@@ -4,7 +4,7 @@ import subprocess
 import atexit
 import os
 
-from status import status
+from storage import status
 
 door_process = None
 buzzer_process = None

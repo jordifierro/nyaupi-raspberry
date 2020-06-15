@@ -14,4 +14,4 @@ ENV FLASK_APP switch.py
 ENV LC_ALL en_US.utf-8
 ENV LANG en_US.utf-8
 
-CMD python3 status.py && python3 alarm.py & flask run --host=0.0.0.0
+CMD python3 storage.py && python3 alarm.py & flask run --host=0.0.0.0

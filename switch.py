@@ -1,5 +1,5 @@
 from flask import Flask
-from status import set_alarm_active
+from storage import set_alarm_active
 app = Flask(__name__)
 
 @app.route('/lock')
