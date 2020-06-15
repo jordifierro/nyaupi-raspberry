@@ -7,7 +7,7 @@ app = Flask(__name__)
 def activate_alarm():
     if correct_auth_token(request):
         set_alarm_active(True)
-        return status()
+        return jsonify(status())
     else:
         return jsonify({'error':'Unauthorized'}), 404
 
@@ -15,7 +15,14 @@ def activate_alarm():
 def deactivate_alarm():
     if correct_auth_token(request):
         set_alarm_active(False)
-        return status()
+        return jsonify(status())
+    else:
+        return jsonify({'error':'Unauthorized'}), 404
+
+@app.route('/status')
+def get_status():
+    if correct_auth_token(request):
+        return jsonify(status())
     else:
         return jsonify({'error':'Unauthorized'}), 404
 
