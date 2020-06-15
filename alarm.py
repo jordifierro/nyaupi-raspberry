@@ -26,20 +26,20 @@ def check():
         is_now_alarm_active = status()['alarm_active']
         if not is_alarm_active and is_now_alarm_active:
             if buzzer_process is not None:
-                buzzer_process.kill()
-            buzzer_process = subprocess.Popen('python3 buzzer.py beep 2', shell=True)
+                buzzer_process.terminate()
+            buzzer_process = subprocess.Popen('exec python3 buzzer.py beep 2', shell=True)
         elif is_alarm_active and not is_now_alarm_active:
             if buzzer_process is not None:
-                buzzer_process.kill()
-            buzzer_process = subprocess.Popen('python3 buzzer.py beep 1', shell=True)
+                buzzer_process.terminate()
+            buzzer_process = subprocess.Popen('exec python3 buzzer.py beep 1', shell=True)
 
         is_now_open_door = status()['door_open']
         if not is_open_door and is_now_open_door and is_now_alarm_active:
             if buzzer_process is not None:
-                buzzer_process.kill()
+                buzzer_process.terminate()
             ALARM_SOUND_SECONDS = int(os.environ['ALARM_SOUND_MINUTES']) * 60
-            buzzer_process = subprocess.Popen('python3 buzzer.py alarm ' + str(ALARM_SOUND_SECONDS), shell=True)
-            mail_process = subprocess.Popen('python3 mail.py', shell=True)
+            buzzer_process = subprocess.Popen('exec python3 buzzer.py alarm ' + str(ALARM_SOUND_SECONDS), shell=True)
+            mail_process = subprocess.Popen('exec python3 mail.py', shell=True)
 
         is_alarm_active = is_now_alarm_active
         is_open_door = is_now_open_door
@@ -49,10 +49,10 @@ def check():
 def tear_down():
     global door_process
     if door_process is not None:
-        door_process.kill()
+        door_process.terminate()
     global buzzer_process
     if buzzer_process is not None:
-        buzzer_process.kill()
+        buzzer_process.terminate()
 
 if __name__ == '__main__':
     atexit.register(tear_down)
