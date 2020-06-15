@@ -16,6 +16,10 @@ connect buzzer VCC to 3V3 power pin (eg: PIN 1), I/O to an I/O pin (eg: PIN 7) a
 git clone https://github.com/jordifierro/nyaupi-raspberry.git
 cd nyapi-raspberry
 ```
+* Create `env.list` file with env vars & set desired ones:
+```bash
+cp env.list.sample env.list
+```
 * Build & run with docker:
 ```bash
 sudo docker build -t nyaupi .
