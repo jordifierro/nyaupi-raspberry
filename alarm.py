@@ -30,7 +30,8 @@ def check():
         if not is_open_door and is_now_open_door and is_now_alarm_active:
             if buzzer_process is not None:
                 buzzer_process.kill()
-            buzzer_process = subprocess.Popen('python3 buzzer.py alarm 5', shell=True)
+            ALARM_SOUND_SECONDS = os.environ['ALARM_SOUND_MINUTES'] * 60
+            buzzer_process = subprocess.Popen('python3 buzzer.py alarm ' + str(ALARM_SOUND_SECONDS), shell=True)
 
         is_alarm_active = is_now_alarm_active
         is_open_door = is_now_open_door
