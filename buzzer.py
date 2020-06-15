@@ -3,8 +3,9 @@ import time
 import math
 import atexit
 import sys
+import os
 
-PIN = 7
+PIN = int(os.environ['BUZZER_PIN'])
 
 def setup():
     GPIO.setmode(GPIO.BOARD)

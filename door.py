@@ -5,7 +5,7 @@ import os
 from storage import set_door_open
 
 
-PIN = 8
+PIN = int(os.environ['DOOR_SENSOR_PIN'])
 
 def setup():
     GPIO.setmode(GPIO.BOARD)
