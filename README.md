@@ -1,5 +1,6 @@
 # Setup
 
+* Make LAN ip static. You can do it from the router or using raspberry DHCP client daemon (DHCPCD)
 * Install docker:
 ```bash
 sudo apt install docker.io
